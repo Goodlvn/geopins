@@ -4,7 +4,15 @@ import { withStyles } from "@material-ui/core/styles";
 // import Typography from "@material-ui/core/Typography";
 
 const Login = ({ classes }) => {
-  return <GoogleLogin clientId="762750838273-1vneh1d07qnc37j2kngm03fu5rrsf8nf.apps.googleusercontent.com"/>;
+  const onSuccess = googleUser => {
+    console.log(googleUser);
+  }
+
+
+  return <GoogleLogin
+    clientId="762750838273-1vneh1d07qnc37j2kngm03fu5rrsf8nf.apps.googleusercontent.com"
+    onSuccess={onSuccess}
+    />;
 };
 
 const styles = {
