@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import axios from "axios";
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
@@ -22,9 +23,22 @@ const CreatePin = ({ classes }) => {
     dispatch({ type: "DELETE_DRAFT" });
   }
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
-    console.log({ title, image, content });
+    const url = await handleImageUpload();
+    console.log({ title, image, url, content });
+  } 
+
+  const handleImageUpload =  async () => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "GeoPins");
+    data.append("cloud_name", "goodlvn");
+    const res = await axios.post(
+      "https://api.cloudinary.com/v1_1/goodlvn/image/upload", data
+    )
+
+    return res.data.url
   }
 
   return (
